@@ -874,7 +874,7 @@ enterprise-secure-network/
 
 # Author
 
-Your Name Here
+Chamikara Jayasinghe
 
 * ICT Undergraduate
 * Network and Security Technologies Specialization
