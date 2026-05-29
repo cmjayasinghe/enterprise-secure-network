@@ -1,0 +1,103 @@
+enable
+configure terminal
+
+hostname MainRouter
+no ip domain-lookup
+
+
+interface g0/0
+no shutdown
+
+interface g0/1
+no shutdown
+
+
+interface g0/0.10
+encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
+
+
+interface g0/0.20
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+
+
+interface g0/0.30
+encapsulation dot1Q 30
+ip address 192.168.30.1 255.255.255.0
+
+
+interface g0/0.40
+encapsulation dot1Q 40
+ip address 192.168.40.1 255.255.255.0
+
+
+interface g0/0.50
+encapsulation dot1Q 50
+ip address 192.168.50.1 255.255.255.0
+
+
+interface g0/0.99
+encapsulation dot1Q 99
+ip address 192.168.99.1 255.255.255.0
+
+
+ip dhcp excluded-address 192.168.99.1 192.168.99.20
+
+
+ip dhcp pool HR
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 8.8.8.8
+
+
+ip dhcp pool FINANCE
+network 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+dns-server 8.8.8.8
+
+
+ip dhcp pool IT
+network 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+dns-server 8.8.8.8
+
+
+ip dhcp pool GUEST
+network 192.168.40.0 255.255.255.0
+default-router 192.168.40.1
+dns-server 8.8.8.8
+
+
+ip dhcp pool MANAGEMENT
+network 192.168.99.0 255.255.255.0
+default-router 192.168.99.1
+dns-server 8.8.8.8
+
+
+access-list 100 deny ip 192.168.40.0 0.0.0.255 192.168.0.0 0.0.255.255
+access-list 100 permit ip any any
+
+
+interface g0/0.40
+ip access-group 100 in
+
+
+
+
+ip domain-name enterprise.local
+
+crypto key generate rsa
+
+username admin secret Cisco123
+
+line vty 0 4
+login local
+transport input ssh
+
+
+
+show ip interface brief
+show ip dhcp binding
+show access-lists
+show ip route

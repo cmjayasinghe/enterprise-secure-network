@@ -1,0 +1,7 @@
+access-list 100 deny ip 192.168.40.0 0.0.0.255 192.168.0.0 0.0.255.255
+access-list 100 permit ip any any
+
+
+interface g0/0.40
+ip access-group 100 in
+

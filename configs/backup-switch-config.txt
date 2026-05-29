@@ -1,0 +1,57 @@
+enable
+configure terminal
+
+hostname BackupSwitch
+no ip domain-lookup
+
+
+vlan 10
+name HR
+
+vlan 20
+name FINANCE
+
+vlan 30
+name IT
+
+vlan 40
+name GUEST
+
+vlan 50
+name SERVERS
+
+vlan 99
+name MANAGEMENT
+
+
+interface fa0/24
+switchport mode trunk
+
+interface range fa0/22-23
+switchport mode trunk
+
+spanning-tree mode pvst
+spanning-tree vlan 1,10,20,30,40,50,99 priority 8192
+
+
+interface fa0/1
+switchport mode access
+switchport access vlan 50
+
+
+
+interface fa0/2
+switchport mode access
+switchport access vlan 99
+
+
+
+interface vlan 99
+ip address 192.168.99.3 255.255.255.0
+no shutdown
+
+ip default-gateway 192.168.99.1
+
+
+
+
